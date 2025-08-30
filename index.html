@@ -1,0 +1,121 @@
+ <!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シンプルで面白いホームページ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>相鉄保存館</h1>
+    <p>相模鉄道の資料などをまとめた非公式ポータルサイト</p>
+  </header>
+
+  <section class="content">
+    <h2>保存館へようこそ</h2>
+<p>保存館では資料などが確認できたり、運行情報が確認できます。</p>
+
+  </section>
+
+  <section class="content">
+    <h2>【祝新車両】13000系のあれこれ</h2>
+
+</section>
+
+  <footer>
+    <p>&copy; 2025 シンプルサイト</p>
+  </footer>
+
+</body>
+</html>
+
+<style>
+  /* 基本的なリセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ボディのスタイル */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f8ff;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ヘッダーのスタイル */
+header {
+  background-color: #002971;
+  color: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+/* セクションのスタイル */
+.content {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: slideUp 1.5s ease-out;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+/* フッターのスタイル */
+footer {
+  margin-top: 40px;
+  font-size: 1em;
+  color: #777;
+}
+
+/* アニメーションの定義 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+</style>
