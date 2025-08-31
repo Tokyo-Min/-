@@ -1,0 +1,112 @@
+todo-web/
+├── index.html
+└── README.md
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TODOリストアプリ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #todo-form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #todo-input {
+      padding: 10px;
+      font-size: 16px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+
+    #add-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 12px 20px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .delete-button {
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>TODOリスト</h1>
+  <div id="todo-form">
+    <input type="text" id="todo-input" placeholder="やることを入力..." />
+    <button id="add-button">追加</button>
+  </div>
+  <ul id="todo-list"></ul>
+
+  <script>
+    const addButton = document.getElementById("add-button");
+    const input = document.getElementById("todo-input");
+    const list = document.getElementById("todo-list");
+
+    addButton.addEventListener("click", () => {
+      const task = input.value.trim();
+      if (task !== "") {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${task}</span>
+          <button class="delete-button">削除</button>
+        `;
+        list.appendChild(li);
+        input.value = "";
+
+        li.querySelector(".delete-button").addEventListener("click", () => {
+          li.remove();
+        });
+      }
+    });
+
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        addButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
