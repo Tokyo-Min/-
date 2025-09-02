@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>特急予約システム</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>特急予約システム</h1>
+
+    <form id="searchForm">
+      <label>路線:
+        <select id="route">
+          <option value="東海道線">東海道線</option>
+          <option value="山陽新幹線">山陽新幹線</option>
+        </select>
+      </label>
+
+      <label>日付:
+        <input type="date" id="date" required />
+      </label>
+
+      <label>出発時間:
+        <input type="time" id="time" required />
+      </label>
+
+      <button type="submit">検索</button>
+    </form>
+
+    <div id="trainResults" class="hidden">
+      <h2>予約可能な列車</h2>
+      <ul id="trainList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.container {
+  background: #fff;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+</style>
+
+<script>
+  document.getElementById("searchForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const route = document.getElementById("route").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  const trains = getDummyTrains(route, date, time);
+
+  const trainList = document.getElementById("trainList");
+  trainList.innerHTML = "";
+
+  trains.forEach(train => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${train.name}</strong> - ${train.departure}発<br />
+      <label>名前: <input type="text" id="name-${train.id}" /></label>
+      <label>座席番号: <input type="text" id="seat-${train.id}" /></label>
+      <button onclick="reserve('${train.id}', '${train.name}')">予約</button>
+    `;
+    trainList.appendChild(li);
+  });
+
+  document.getElementById("trainResults").classList.remove("hidden");
+});
+
+function getDummyTrains(route, date, time) {
+  return [
+    { id: "t1", name: `${route} のぞみ101号`, departure: `${date} ${time}` },
+    { id: "t2", name: `${route} のぞみ103号`, departure: `${date} ${time}` },
+    { id: "t3", name: `${route} ひかり201号`, departure: `${date} ${time}` }
+  ];
+}
+
+function reserve(trainId, trainName) {
+  const name = document.getElementById(`name-${trainId}`).value;
+  const seat = document.getElementById(`seat-${trainId}`).value;
+
+  if (!name || !seat) {
+    alert("名前と座席番号を入力してください。");
+    return;
+  }
+
+  const reservation = {
+    train: trainName,
+    name: name,
+    seat: seat,
+    timestamp: new Date().toISOString()
+  };
+
+  let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+  reservations.push(reservation);
+  localStorage.setItem("reservations", JSON.stringify(reservations));
+
+  alert(`予約完了: ${trainName} / 座席: ${seat}`);
+}
+
+</script>
